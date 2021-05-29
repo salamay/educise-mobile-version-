@@ -7,9 +7,9 @@ import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:uuid/uuid.dart';
 class CardDetailPage extends StatefulWidget {
   String amount;
-  String customercode;
   String customeremail;
-  CardDetailPage({this.amount,this.customercode,this.customeremail});
+  String plancode;
+  CardDetailPage({this.amount,this.customeremail,this.plancode});
   @override
   _CardDetailPageState createState() => _CardDetailPageState();
 }
@@ -67,7 +67,6 @@ class _CardDetailPageState extends State<CardDetailPage> {
       ..reference = ref
       ..email=widget.customeremail
       ..amount=int.parse(widget.amount)
-      ..plan="PLN_928u5enaurxh9ks"
       ..card = _getPaymentCard()
     ..putCustomField('Charged From', 'Flutter PLUGIN');
     final response = await plugin.chargeCard(context, charge: charge);
@@ -158,7 +157,6 @@ class _CardDetailPageState extends State<CardDetailPage> {
                         if (formKey.currentState.validate()) {
                           print('valid!');
                           print('===================================================');
-                          print(widget.customercode);
                           print(widget.customeremail);
                           print(widget.amount);
                           print('===================================================');

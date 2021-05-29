@@ -128,10 +128,9 @@ class _AddStaffState extends State<AddStaff> {
                       children: [
                         SizedBox(height: 20,),
                         TextFormField(
-                          inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
                           controller: usernameEditingController,
-                          decoration: inputDecoration.copyWith(hintText: "Username",icon: Icon(Icons.people,size: 24,)),
-                          validator: (val)=>val.isEmpty?"invalid username":null,
+                          decoration: inputDecoration.copyWith(hintText: "Staff id",icon: Icon(Icons.people,size: 24,)),
+                          validator: (val)=>val.isEmpty?"invalid staff id":null,
                         ),
                         SizedBox(height: 20,),
                         TextFormField(

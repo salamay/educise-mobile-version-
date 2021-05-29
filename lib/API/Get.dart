@@ -8,9 +8,10 @@ import 'package:http/http.dart';
 class Get{
   var client = http.Client();
   Future<http.Response> getData(BuildContext context,String url,String token)async{
+    print("hjgdshdfjf");
     var uri = Uri.parse(url);
     final response =await client.get(uri,headers: {'Authorization': "Bearer "+token,}).catchError((error, stackTrace) {Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>TimeOutPage(body: "Connection error",)));});
-    print(response);
+    print(response.statusCode);
     return response;
   }
 }

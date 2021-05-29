@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class SubscriptionCustomerInfo extends StatelessWidget {
-   String _email="salamay47@gmail.com";
-   String _customercode="CUS_3jcebk1t4l3cmnf";
-   String _amount="6000";
+   String email;
+   String amount;
+   SubscriptionCustomerInfo({this.email,this.amount});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +77,7 @@ class SubscriptionCustomerInfo extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          child: AutoSizeText("Email: ${_email}",
+                                          child: AutoSizeText("Email: $email",
                                             style: GoogleFonts.lato(
                                                 color: Colors.black54,
                                                 fontSize: 12
@@ -86,16 +86,7 @@ class SubscriptionCustomerInfo extends StatelessWidget {
                                         ),
                                         SizedBox(height: 5,),
                                         Container(
-                                          child: AutoSizeText("Customer code: ${_customercode}",
-                                            style: GoogleFonts.lato(
-                                                color: Colors.black54,
-                                                fontSize: 12
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 5,),
-                                        Container(
-                                          child: AutoSizeText("Amount: #${_amount}",style: GoogleFonts.lato(
+                                          child: AutoSizeText("Amount: #${amount}",style: GoogleFonts.lato(
                                               color: Colors.black54,
                                               fontSize: 12
                                           ),
@@ -103,7 +94,7 @@ class SubscriptionCustomerInfo extends StatelessWidget {
                                         ),
                                         SizedBox(height: 5,),
                                         Container(
-                                          child: AutoSizeText("Note: By clicking proceed button, you have  agreed to pay the sum of #${_amount}",style: GoogleFonts.lato(
+                                          child: AutoSizeText("Note: By clicking proceed button, you have  agreed to pay the sum of #${amount}",style: GoogleFonts.lato(
                                               color: Colors.green,
                                               fontSize: 10
                                           ),
@@ -144,7 +135,7 @@ class SubscriptionCustomerInfo extends StatelessWidget {
                     ),
                   ),
                   onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>CardDetailPage(amount: _amount,customercode: _customercode,customeremail: _email,)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>CardDetailPage(amount: amount,customeremail: email,)));
                   }
                   ),
             ),

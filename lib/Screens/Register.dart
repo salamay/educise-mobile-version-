@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:educise/API/Post.dart';
 import 'package:educise/Screens/Widget/formDecoration.dart';
@@ -16,9 +17,12 @@ class _RegisterState extends State<Register> {
    String _schoolid;
    String _username;
    String _password;
+   String _noofstudent;
+
    final _key=GlobalKey<FormState>();
    final TextEditingController emailEditingController=TextEditingController();
    final TextEditingController schoolEditingController=TextEditingController();
+   final TextEditingController noofstudentEditingController=TextEditingController();
    final TextEditingController usernameEditingController=TextEditingController();
    final TextEditingController passwordEditingController=TextEditingController();
    final TextEditingController password2EditingController=TextEditingController();
@@ -92,17 +96,12 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20,),
-                        TextFormField(
-                          controller: emailEditingController,
-                         // initialValue: _email,
-                          decoration: inputDecoration.copyWith(hintText: "Email",icon: Icon(Icons.email_outlined,size: 24,)),
-                          validator: (val)=>val.isEmpty?"Please enter a valid email":null,
-                        )
-                      ],
+                    SizedBox(height: 20,),
+                    TextFormField(
+                      controller: emailEditingController,
+                     // initialValue: _email,
+                      decoration: inputDecoration.copyWith(hintText: "Email",icon: Icon(Icons.email_outlined,size: 24,)),
+                      validator: (val)=>val.isEmpty?"Please enter a valid email":null,
                     )
                   ],
                 )
@@ -122,21 +121,16 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20,),
-                        TextFormField(
-                          inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
-                          controller: usernameEditingController,
-                          decoration: inputDecoration.copyWith(hintText: "Staff id",icon: Icon(Icons.people,size: 24,)),
-                          validator: (val)=>val.isEmpty?"Please enter a valid staff id":null,
-                        )
-                      ],
+                    SizedBox(height: 20,),
+                    TextFormField(
+                      controller: usernameEditingController,
+                      decoration: inputDecoration.copyWith(hintText: "Staff id",icon: Icon(Icons.people,size: 24,)),
+                      validator: (val)=>val.isEmpty?"Please enter a valid staff id":null,
                     )
                   ],
                 )
               },
+
               {
                 'color':HexColor("8b5fbf"),
                 'background':HexColor("ecebff"),
@@ -163,8 +157,7 @@ class _RegisterState extends State<Register> {
                         SizedBox(width: 10,),
                           Expanded(
                             child: Container(
-                              width: MediaQuery.of(context).size.width*0.8,
-                              child: Text(
+                              child: AutoSizeText(
                                 "This is a unique id that will be assigned to your school,\n make sure to keep it safe",
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.lato(
@@ -177,16 +170,11 @@ class _RegisterState extends State<Register> {
                           ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20,),
-                        TextFormField(
-                          controller: schoolEditingController,
-                          decoration: inputDecoration.copyWith(hintText: "school id",icon: Icon(Icons.tag,size: 24,)),
-                          validator: (val)=>val.isEmpty?"Please enter a valid school id":null,
-                        )
-                      ],
+                    SizedBox(height: 20,),
+                    TextFormField(
+                      controller: schoolEditingController,
+                      decoration: inputDecoration.copyWith(hintText: "school id",icon: Icon(Icons.tag,size: 24,)),
+                      validator: (val)=>val.isEmpty?"Please enter a valid school id":null,
                     )
                   ],
                 )
@@ -195,6 +183,56 @@ class _RegisterState extends State<Register> {
                 'color':HexColor("8b5fbf"),
                 'background':HexColor("ecebff"),
                 'label':'4',
+                'content': Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Number of student",
+                      style: GoogleFonts.lato(
+                        color: HexColor("545652"),
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          color: Colors.red,
+                          size: 18,
+                        ),
+                        SizedBox(width: 10,),
+                        Expanded(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width*0.8,
+                            child: AutoSizeText(
+                              "The number of resources will be allocated according to the no of students so make sure you choose carefully,also we will charge you according to the no of students",
+                              style: GoogleFonts.lato(
+                                color: HexColor("545652"),
+                                fontSize: 10,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20,),
+                    TextFormField(
+                      inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[0-9]")),],
+                      keyboardType: TextInputType.number,
+                      controller: noofstudentEditingController,
+                      decoration: inputDecoration.copyWith(hintText: "No of student",icon: Icon(Icons.people,size: 24,)),
+                      validator: (val)=>val.isEmpty?"Please enter a valid number":null,
+                    )
+                  ],
+                )
+              },
+              {
+                'color':HexColor("8b5fbf"),
+                'background':HexColor("ecebff"),
+                'label':'5',
                 'content': Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -231,32 +269,27 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20,),
-                        TextFormField(
-                          controller: passwordEditingController,
-                          decoration: inputDecoration.copyWith(hintText: "password",icon: Icon(Icons.lock,size: 24,)),
-                          validator: (val)=>val.length<6?"invalid password":null,
-                        ),
-                        SizedBox(height: 20,),
+                    SizedBox(height: 20,),
+                    TextFormField(
+                      controller: passwordEditingController,
+                      decoration: inputDecoration.copyWith(hintText: "password",icon: Icon(Icons.lock,size: 24,)),
+                      validator: (val)=>val.length<6?"invalid password":null,
+                    ),
+                    SizedBox(height: 20,),
 
-                        Text(
-                          "Confirm password",
-                          style: GoogleFonts.lato(
-                            color: HexColor("545652"),
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 10,),
-                        TextFormField(
-                          controller: password2EditingController,
-                          decoration: inputDecoration.copyWith(hintText: "Confirm password",icon: Icon(Icons.lock,size: 24,)),
-                          validator: (val)=>val==passwordEditingController.text.toString()?null:"Password does not match",
-                        )
-                      ],
+                    Text(
+                      "Confirm password",
+                      style: GoogleFonts.lato(
+                        color: HexColor("545652"),
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      controller: password2EditingController,
+                      decoration: inputDecoration.copyWith(hintText: "Confirm password",icon: Icon(Icons.lock,size: 24,)),
+                      validator: (val)=>val==passwordEditingController.text.toString()?null:"Password does not match",
                     )
                   ],
                 )
@@ -264,7 +297,7 @@ class _RegisterState extends State<Register> {
               {
                 'color':HexColor("8b5fbf"),
                 'background':HexColor("ecebff"),
-                'label':'5',
+                'label':'6',
                 'content': Container(
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
@@ -288,11 +321,13 @@ class _RegisterState extends State<Register> {
                                _username=usernameEditingController.text.toString();
                                _schoolid=schoolEditingController.text.toString();
                                _password=passwordEditingController.text.toString();
+                               _noofstudent=noofstudentEditingController.text.toString();
                                Map<String,dynamic> body={
                                  "email":_email,
                                  "staffid":_username,
                                  "password":_password,
-                                 "schoolid":_schoolid
+                                 "schoolid":_schoolid,
+                                 "numberofstudent":_noofstudent
                                };
                                final response = await PostRequest().sendData(context,"http://192.168.43.36:8080/registeration", body,null);
                                print(response);

@@ -47,197 +47,200 @@ class _SignInState extends State<SignIn> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Container(
-          width:MediaQuery.of(context).size.width ,
+      body: Stack(
+        children: [
+           CustomPaint(
+            size: Size(WIDTH*0.6,(WIDTH*3.0).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+            painter: RPSCustomPainter2(),
+          ),
+           CustomPaint(
+            size: Size(WIDTH*0.4,(WIDTH*3.4).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+            painter: RPSCustomPainter(),
+          ),
 
-          child: Stack(
-            children: [
-               CustomPaint(
-                size: Size(WIDTH*0.6,(WIDTH*3.0).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: RPSCustomPainter2(),
-              ),
-               CustomPaint(
-                size: Size(WIDTH*0.4,(WIDTH*3.4).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: RPSCustomPainter(),
-              ),
-              Positioned(
-                  top: MediaQuery.of(context).size.height*0.09 ,
-                left: MediaQuery.of(context).size.width*0.4,
-                child: SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Image.asset("asset/undraw_professor_8lrt-removebg-preview.png")
-                )
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height*0.3,
-                left:MediaQuery.of(context).size.width*0.4 ,
-                child: Container(
-                  child: Text(
-                    "Sign In",
-                    style: GoogleFonts.lato(
-                        color: HexColor("8B5FBF"),
-                        fontSize: 30
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                  top: MediaQuery.of(context).size.height*0.4,
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width*0.9 ,
-                    child: Form(
-                      key: _key,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center ,
-                        children: [
-                          TextFormField(
-                            inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
-                            decoration: InputDecoration(
-                              errorStyle: TextStyle(
-                                  color: Colors.green
-                              ),
-                              icon: Icon(
-                                Icons.tag,
-                                size: 18,
-                                color: HexColor("8B5FBF"),
-                              ),
-                              hintText: "Enter school id",
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.0,
-                                    color: HexColor("E3EBFF"),
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                              ),
-                            ),
-                            onChanged: (val){
-                              setState(() {
-                                _schoolid=val;
-                              });
-                            },
-                            validator: (val)=> val.isEmpty?"please provide a valid password":null,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.05,),
-                          TextFormField(
-                            inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
-                            decoration: InputDecoration(
-                                errorStyle: TextStyle(
-                                    color: Colors.green
-                                ),
-                                icon: Icon(
-                                  Icons.people,
-                                  color: HexColor("8B5FBF"),
-                                  size: 18,
-                                ),
-                                hintText: "Staff id",
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1.0,
-                                      color:HexColor("E3EBFF"),
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(20))
-                                )
-                            ),
-                            onChanged: (val){
-                              setState(() {
-                                _staffid=val;
-                              });
-                            },
-                            validator: (val)=>val.isEmpty?"Please enter a valid staff id":null,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.05,),
-                          TextFormField(
-                            inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
-                            decoration: InputDecoration(
-                              errorStyle: TextStyle(
-                                color: Colors.green
-                              ),
-                              icon: Icon(
-                                Icons.lock,
-                                size: 18,
-                                color: HexColor("8B5FBF"),
-                              ),
-                              hintText: "password",
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.0,
-                                      color: HexColor("E3EBFF"),
-                                  ),
-                                  borderRadius: BorderRadius.all(Radius.circular(20))
-                              ),
-                            ),
-                            obscureText: true,
-                            onChanged: (val){
-                              setState(() {
-                                _password=val;
-                              });
-                            },
-                            validator: (val)=> val.length<6?"please provide a valid password":null,
-                          ),
-                          SizedBox(height: MediaQuery.of(context).size.height*0.09,),
-
-                          FlatButton(
-                  hoverColor: Colors.white70,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      side: BorderSide(
-                          color: Colors.white
+          SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  Positioned(
+                      top: MediaQuery.of(context).size.height*0.09 ,
+                      left: MediaQuery.of(context).size.width*0.4,
+                      child: SizedBox(
+                          height: 300,
+                          width: 300,
+                          child: Image.asset("asset/undraw_professor_8lrt-removebg-preview.png")
                       )
                   ),
-                  color: HexColor("48A986"),
-                  onPressed: ()async{
-                    if(_key.currentState.validate()){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SigningIn(staffid: _staffid,schoolid: _schoolid,password: _password,)));
-                    }
-                  },
-
-                  child: Text(
-                    "Sign in",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.normal
+                  Positioned(
+                    top: MediaQuery.of(context).size.height*0.3,
+                    left:MediaQuery.of(context).size.width*0.4 ,
+                    child: Container(
+                      child: Text(
+                        "Sign In",
+                        style: GoogleFonts.lato(
+                            color: HexColor("8B5FBF"),
+                            fontSize: 30
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                          SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                  Positioned(
+                      top: MediaQuery.of(context).size.height*0.4,
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width*0.9 ,
+                        child: Form(
+                          key: _key,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center ,
                             children: [
-                              Text("Not a member "),
-                              SizedBox(width: 3,),
-                              RaisedButton(
-                                elevation:30,
+                              TextFormField(
+                                inputFormatters: [new  WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")),],
+                                decoration: InputDecoration(
+                                  errorStyle: TextStyle(
+                                      color: Colors.green
+                                  ),
+                                  icon: Icon(
+                                    Icons.tag,
+                                    size: 18,
+                                    color: HexColor("8B5FBF"),
+                                  ),
+                                  hintText: "Enter school id",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.0,
+                                        color: HexColor("E3EBFF"),
+                                      ),
+                                      borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
+                                ),
+                                onChanged: (val){
+                                  setState(() {
+                                    _schoolid=val;
+                                  });
+                                },
+                                validator: (val)=> val.isEmpty?"please provide a valid school id":null,
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                    errorStyle: TextStyle(
+                                        color: Colors.green
+                                    ),
+                                    icon: Icon(
+                                      Icons.people,
+                                      color: HexColor("8B5FBF"),
+                                      size: 18,
+                                    ),
+                                    hintText: "Staff id",
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1.0,
+                                          color:HexColor("E3EBFF"),
+                                        ),
+                                        borderRadius: BorderRadius.all(Radius.circular(20))
+                                    )
+                                ),
+                                onChanged: (val){
+                                  setState(() {
+                                    _staffid=val;
+                                  });
+                                },
+                                validator: (val)=>val.isEmpty?"Please enter a valid staff id":null,
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+                              TextFormField(
+                                decoration: InputDecoration(
+                                  errorStyle: TextStyle(
+                                      color: Colors.green
+                                  ),
+                                  icon: Icon(
+                                    Icons.lock,
+                                    size: 18,
+                                    color: HexColor("8B5FBF"),
+                                  ),
+                                  hintText: "password",
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.0,
+                                        color: HexColor("E3EBFF"),
+                                      ),
+                                      borderRadius: BorderRadius.all(Radius.circular(20))
+                                  ),
+                                ),
+                                obscureText: true,
+                                onChanged: (val){
+                                  setState(() {
+                                    _password=val;
+                                  });
+                                },
+                                validator: (val)=> val.length<6?"please provide a valid password":null,
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height*0.09,),
+
+                              FlatButton(
+                                hoverColor: Colors.white70,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(20)),
                                     side: BorderSide(
-                                        color: HexColor("E3EBFF"),
+                                        color: Colors.white
                                     )
                                 ),
-                                color: Colors.white,
-                                onPressed:(){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
-                                  },
+                                color: HexColor("48A986"),
+                                onPressed: ()async{
+                                  if(_key.currentState.validate()){
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SigningIn(staffid: _staffid,schoolid: _schoolid,password: _password,)));
+                                  }
+                                },
+
                                 child: Text(
-                                  "Register",
+                                  "Sign in",
                                   style: TextStyle(
-                                      color: Colors.blue,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.normal
                                   ),
                                 ),
+                              ),
+                              SizedBox(height: 10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text("Not a member "),
+                                  SizedBox(width: 3,),
+                                  RaisedButton(
+                                    elevation:30,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                        side: BorderSide(
+                                          color: HexColor("E3EBFF"),
+                                        )
+                                    ),
+                                    color: Colors.white,
+                                    onPressed:(){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
+                                    },
+                                    child: Text(
+                                      "Register",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.normal
+                                      ),
+                                    ),
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
-                      ),
-                    ),
+                          ),
+                        ),
+                      )
                   )
-              )
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:educise/API/Post.dart';
 import 'package:educise/Screens/Home.dart';
 import 'package:educise/Screens/SignIn.dart';
+import 'package:educise/Screens/Widget/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -51,7 +52,7 @@ if(response.statusCode!=null){
     Map <String, dynamic> responseBody = jsonDecode(response.body);
     print(responseBody['jwt']);
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home(token: responseBody['jwt'],)));
+        context, MaterialPageRoute(builder: (context) => NavigationDrawer(token: responseBody['jwt'],)));
   } else {
     showFailed(response.statusCode, response.body);
   }
