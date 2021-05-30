@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:steps/steps.dart';
 class Register extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _RegisterState extends State<Register> {
    String _username;
    String _password;
    String _noofstudent;
-
+   AlertDialog alertdialog=AlertDialog(title: Text("Please wait"),content: LoadingIndicator(indicatorType: Indicator.lineSpinFadeLoader, color: Colors.blue,));
    final _key=GlobalKey<FormState>();
    final TextEditingController emailEditingController=TextEditingController();
    final TextEditingController schoolEditingController=TextEditingController();
@@ -26,7 +27,7 @@ class _RegisterState extends State<Register> {
    final TextEditingController usernameEditingController=TextEditingController();
    final TextEditingController passwordEditingController=TextEditingController();
    final TextEditingController password2EditingController=TextEditingController();
-
+   LoadingIndicator loadingIndicator=LoadingIndicator(indicatorType: Indicator.lineSpinFadeLoader, color: Colors.green,);
 
    showSuccess(){
      return  AwesomeDialog(
@@ -316,6 +317,7 @@ class _RegisterState extends State<Register> {
                     ),
                     onPressed: () async{
                       if(_key.currentState.validate()){
+                        showDialog(context: context, builder: (context)=>alertdialog);
 
                                _email=emailEditingController.text.toString();
                                _username=usernameEditingController.text.toString();
@@ -331,9 +333,12 @@ class _RegisterState extends State<Register> {
                                };
                                final response = await PostRequest().sendData(context,"http://192.168.43.36:8080/registeration", body,null);
                                print(response);
+
                                if(response.statusCode == 200){
+                                 Navigator.pop(context);
                                  showSuccess();
                                }else{
+                                 Navigator.pop(context);
                                  showFailed(response.statusCode,response.body);
                                }
 

@@ -9,7 +9,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart';
-
 import 'AddClass.dart';
 import 'AddStaff.dart';
 import 'SignIn.dart';

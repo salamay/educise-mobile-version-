@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:clay_containers/widgets/clay_container.dart';
-import 'package:clay_containers/widgets/clay_text.dart';
 import 'package:educise/Screens/CardDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
